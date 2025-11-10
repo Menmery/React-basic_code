@@ -1,12 +1,17 @@
-const flag = false
+const type = 2
+
+const getArticle = () => {
+  if (type === 1) {
+    return <div>无图模式模版</div>
+  } else if (type === 2) {
+    return <div>有图模式模版</div>
+  }
+}
 
 function App() {
   return (
     <div className="App">
-      {/* 逻辑与运算符 */}
-      {flag && <h1>Welcome to React</h1>}
-      {/* 三元运算符 */}
-      {flag ? <h1>Welcome to React</h1> : <h1>Sorry, you are not authorized to access this page</h1>}
+      {getArticle(type)}
     </div>
   );
 }
