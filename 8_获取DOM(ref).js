@@ -1,6 +1,7 @@
 import { useRef } from "react"
 
 function App() {
+  // 渲染完毕后 dom生成后才可用
   const inputRef = useRef(null)
   const showDom = () => {
     console.log(inputRef)

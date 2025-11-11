@@ -4,7 +4,7 @@ function App() {
     <div className="App">
       react-basic
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
