@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react'
 
 function Son() {
   useEffect(() => {
-    // 实现副作用操作逻辑
     const timer = setInterval(() => {
       console.log('定时器执行中')
     }, 1000)
 
+    // 清楚副作用
     // 在组件卸载时自动执行 调用函数
     return () => {
-      // 清楚副作用
       clearInterval(timer)
     }
   }, [])
