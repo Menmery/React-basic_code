@@ -25,6 +25,7 @@ const createChannelStore = (set) => {
 }
 
 // 组合切片
+// ...a => 接收所有剩余的参数 (set, get, storeApi)
 const useStore = create((...a) => ({
   ...createCounterStore(...a),
   ...createChannelStore(...a)
