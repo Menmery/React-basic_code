@@ -1,34 +1,26 @@
-// 定义reducer
+import { useMemo, useState } from 'react'
 
-import { useReducer } from 'react'
-
-// 1. 根据不同的action返回不同的新状态
-function reducer(state, action) {
-  console.log('reducer执行了')
-  switch (action.type) {
-    case 'INC':
-      return state + 1
-    case 'DEC':
-      return state - 1
-    case 'UPDATE':
-      return state + action.payload
-    default:
-      return state
-  }
+function fib(n) {
+  console.log('计算函数执行了')
+  if (n < 3) return 1
+  return fib(n - 2) + fib(n - 1)
 }
 
 function App() {
-  // 2. 使用useReducer分派action
-  const [state, dispatch] = useReducer(reducer, 0)
+  const [count, setCount] = useState(0)
+  // 计算斐波那契之和
+  // 通过useMemo缓存计算结果，只有count发生变化时才重新计算
+  const sum = useMemo(() => {
+    return fib(count)
+  }, [count])
+
+  const [num, setNum] = useState(0)
+
   return (
     <>
-      {/* 3. 调用dispatch函数传入action对象 触发reducer函数，分派action操作，使用新状态更新视图 */}
-      <button onClick={() => dispatch({ type: 'DEC' })}>-</button>
-      {state}
-      <button onClick={() => dispatch({ type: 'INC' })}>+</button>
-      <button onClick={() => dispatch({ type: 'UPDATE', payload: 100 })}>
-        update to 100
-      </button>
+      {sum}
+      <button onClick={() => setCount(count + 1)}>+count:{count}</button>
+      <button onClick={() => setNum(num + 1)}>+num:{num}</button>
     </>
   )
 }
