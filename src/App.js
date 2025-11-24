@@ -1,33 +1,35 @@
-import { useState } from "react"
+// 定义reducer
 
-function useToggle() {
-  // 可复用的逻辑代码
-  const [value, setValue] = useState(true)
+import { useReducer } from 'react'
 
-  const toggle = () => setValue(!value)
-
-  // 哪些状态和回调函数需要在其他组件中使用 return
-  return {
-    value,
-    toggle
+// 1. 根据不同的action返回不同的新状态
+function reducer(state, action) {
+  console.log('reducer执行了')
+  switch (action.type) {
+    case 'INC':
+      return state + 1
+    case 'DEC':
+      return state - 1
+    case 'UPDATE':
+      return state + action.payload
+    default:
+      return state
   }
 }
 
-// 封装自定义hook通用思路
-
-// 1. 声明一个以use打头的函数
-// 2. 在函数体内封装可复用的逻辑（只要是可复用的逻辑）
-// 3. 把组件中用到的状态或者回调return出去（以对象或者数组）
-// 4. 在哪个组件中要用到这个逻辑，就执行这个函数，解构出来状态和回调进行使用
-
-
 function App() {
-  const { value, toggle } = useToggle()
+  // 2. 使用useReducer分派action
+  const [state, dispatch] = useReducer(reducer, 0)
   return (
-    <div>
-      {value && <div>this is div</div>}
-      <button onClick={toggle}>toggle</button>
-    </div>
+    <>
+      {/* 3. 调用dispatch函数传入action对象 触发reducer函数，分派action操作，使用新状态更新视图 */}
+      <button onClick={() => dispatch({ type: 'DEC' })}>-</button>
+      {state}
+      <button onClick={() => dispatch({ type: 'INC' })}>+</button>
+      <button onClick={() => dispatch({ type: 'UPDATE', payload: 100 })}>
+        update to 100
+      </button>
+    </>
   )
 }
 
