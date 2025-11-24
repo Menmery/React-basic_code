@@ -31,13 +31,13 @@ const useStore = create((...a) => ({
 }))
 
 function App() {
-  const { count, inc, channelList, fetchGetList } = useStore()
+  const { count, setCount, channelList, fetchGetList } = useStore()
   useEffect(() => {
     fetchGetList()
   }, [fetchGetList])
   return (
     <>
-      <button onClick={inc}>{count}</button>
+      <button onClick={setCount}>{count}</button>
       <ul>
         {channelList.map((item) => (
           <li key={item.id}>{item.name}</li>
